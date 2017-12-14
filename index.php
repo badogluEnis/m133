@@ -1,31 +1,30 @@
 <?php
-  session_start();
-  require_once("include/functions.php");
-  require_once("include/functions_db.php");
-  require_once("include/functions_db_plus.php");
-  define("DBNAME", "db/blog.db");
-  // Datenbankverbindung herstellen, diesen Teil nicht ändern!
-  if (!file_exists(DBNAME)) exit("Die Datenbank 'blog.db' konnte nicht gefunden werden!");
-  $db = new SQLite3(DBNAME);
-  setValue("cfg_db", $db);
-  // Einfacher Dispatcher: Aufruf der Funktionen via index.php?function=xy
-  if (isset($_GET['function'])) $function = $_GET['function'];
-  else $function = "login";
-  // Prüfung, ob bereits ein Blog ausgewählt worden ist
-  if (isset($_GET['bid'])) $blogId = $_GET['bid'];
-  else $blogId = 0;
-  $userId;
-  $displayName;
-  if (isset($_SESSION['uid']) && $_SESSION['uid'] > 0){
-      $userId = $_SESSION['uid'];
-      $displayName = $_SESSION['username'];
-  }
+session_start();
+require_once("include/functions.php");
+require_once("include/functions_db.php");
+require_once("include/functions_db_plus.php");
+define("DBNAME", "db/blog.db");
+// Datenbankverbindung herstellen, diesen Teil nicht ändern!
+if (!file_exists(DBNAME)) exit("Die Datenbank 'blog.db' konnte nicht gefunden werden!");
+$db = new SQLite3(DBNAME);
+setValue("cfg_db", $db);
+// Einfacher Dispatcher: Aufruf der Funktionen via index.php?function=xy
+if (isset($_GET['function'])) $function = $_GET['function'];
+else $function = "login";
+// Prüfung, ob bereits ein Blog ausgewählt worden ist
+if (isset($_GET['bid'])) $blogId = $_GET['bid'];
+else $blogId = 0;
+if (isset($_GET['eid'])) $entryId = $_GET['eid'];
+else $entryId = 0;
+if (isset($_GET['cid'])) $commentId = $_GET['cid'];
+else $commentId = 0;
+$updateValues = array('title' => '','content' => '');
 ?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="utf-8">
-<!-- 
+<!--
   Die nächsten 4 Zeilen sind Bootstrap, falls nicht gewünscht entfernen.
 -->
   <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
@@ -35,38 +34,19 @@
   <script src="include/functions.js"></script>
   <title>Blog-Projekt</title>
 </head>
-<header>
-</header>
+
 <body>
-<!-- 
+<!--
   nav, div und ul class="..." ist Bootstrap, falls nicht gewünscht entfernen oder anpassen.
   Die Einteilung der Website in verschiedene Bereiche (Menü-, Content-Bereich, usw.) kann auch selber mit div realisiert werden.
 -->
   <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
       <div class="navbar-header">
-		<a class="navbar-brand"><?php 
-		if ($blogId != 0){
-		    $username = getUserName($blogId);
-		    echo "Blog von $username";
-		} else {
-		    echo "kein Blog ausgewählt";
-		} ?></a>
+		<a class="navbar-brand"><?= getMenuTitle($blogId); ?></a>
       </div>
       <ul class="nav navbar-nav">
-		<?php 
-		  if (isset($userId)){
-		      echo "<li><a bid=$blogId'>Eingeloggt als: $displayName</a></li>";
-		      echo "<li><a href='index.php?function=blogs&bid=$blogId'>Blog wählen</a></li>";
-		      echo "<li><a href='index.php?function=entries_public&bid=$blogId'>Beiträge anzeigen</a></li>";
-		      echo "<li><a href='index.php?function=logout&bid=$blogId'>Log out</a></li>";
-		  } else {
-		
-		  echo "<li><a href='index.php?function=login&bid=$blogId'>Login</a></li>";
-		  echo "<li><a href='index.php?function=blogs&bid=$blogId'>Blog wählen</a></li>";
-		  echo "<li><a href='index.php?function=entries_public&bid=$blogId'>Beiträge anzeigen</a></li>";
-		  }
-		?>
+		<?= getMenu($blogId); ?>
       </ul>
 	</div>
   </nav>
