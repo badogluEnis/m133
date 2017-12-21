@@ -27,9 +27,10 @@ echo '<p/>
     echo "<h3>Kommentare</h3>";
     $allComments =  getComments($entryId);
     foreach ($allComments as $comments => $comment) {
-      echo "<h4>".$comment['name']."</h4>";
-      echo date('d.m.Y', $comment['datetime'])."<br>";
+      echo "<h4><b>".$comment['name'].":</b></h4>";
       echo nl2br($comment['content']."<br>");
+      echo date('d.m.Y', $comment['datetime'])."<br>";
+      
     }
 ?>
   <h3>Neuer Kommentar</h3>
