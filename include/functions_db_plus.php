@@ -13,6 +13,7 @@ function userExists($email) {
     if ($user = $result->fetchArray()) return true;
     else return false;
 }
+
 /************************************************************************************************
  getUsers: Liefert alle registrierten Benutzer zurück
  Hinweis:	 Diese Funktion kann dazu benutzt werden, alle Benutzer in eine Textdatei zu exportieren
@@ -34,6 +35,7 @@ function getUsers() {
     }
     return $alle;
 }
+
 /************************************************************************************************
  addUser:	  Schreibt einen neuen Benutzer in die Datenbank
  Hinweis:	  Diese Funktion kann dazu benutzt werden, Benutzer aus einer Textdatei zu importieren
@@ -50,6 +52,7 @@ function addUser($name, $email, $password, $role) {
     $sql = "INSERT INTO user (name, email, password, role) values ('$name', '$email', '$password', $role)";
     return $db->exec($sql);
 }
+
 /************************************************************************************************
  getEntriesTheme:	Siehe Beschreibung "getEntries"
  Unterschied:		Es werden alle Beiträge eines Blogs zu einem bestimmten Thema zurückgegeben
@@ -64,6 +67,7 @@ function getEntriesTheme($uid, $tid) {
     }
     return $alle;
 }
+
 /************************************************************************************************
  getMaxEntry: Liefert die ID des neusten Betrags zurück
  ************************************************************************************************/
@@ -74,6 +78,7 @@ function getMaxEntryId($uid) {
         return $entry[0];
     } else return 0;
 }
+
 /************************************************************************************************
  addEntryExtended: Schreibt einen neuen Beitrag in die Datenbank, mit allen Attributen
  $uid:			 User-ID - Jeder Beitrag muss einem Benutzer/Blog zugeordnet werden
@@ -96,6 +101,7 @@ function addEntryPlus($uid, $tid, $title, $content, $picture1, $picture2, $pictu
     $sql = "INSERT INTO entry (uid, tid, datetime, title, content, picture1, picture2, picture3) values ($uid, $tid, ".time().", '$title', '$content', '$picture1', '$picture2', '$picture3')";
     return $db->exec($sql);
 }
+
 /************************************************************************************************
  getComments:	Liefert alle Kommentare eines Blog-Beitrags zurück
  $eid:		Entry-ID des gewünschten Beitrags
@@ -120,6 +126,7 @@ function getComments($eid) {
     }
     return $alle;
 }
+
 /************************************************************************************************
  addCommentNoUser: Schreibt einen neuen Kommentar in die DB
  $eid:			 Entry-ID - ID des Beitrgs, zu dem der Kommentar geschrieben wird
@@ -136,6 +143,7 @@ function addComment($eid, $name, $content) {
     if ($db->exec($sql)) return $randomnr;
     else return 0;
 }
+
 /************************************************************************************************
  deleteComment: Löscht einen bestimmten Kommentar zu einem Blog-Beitrag aus der Datenbank
  $cid:		  Comment-ID des zu löschenden Kommentars
@@ -152,6 +160,7 @@ function deleteComment($cid) {
         return $db->exec($sql);
     } false;
 }
+
 /************************************************************************************************
  getTopics:	Liefert alle Themen eines Benutzers zurück
  $uid:		User-ID des gewünschten Benutzers
@@ -173,6 +182,7 @@ function getTopics($uid) {
     }
     return $alle;
 }
+
 /************************************************************************************************
  getTopic: Liefert ein bestimmtes Thema zurück (z.B. zum Editieren)
  $tid:	 Topic-ID des gewünschten Themas
@@ -189,6 +199,7 @@ function getTopic($tid) {
         return $topic;
     } else return "";
 }
+
 /************************************************************************************************
  addTopic:	 Schreibt ein neues Thema in die Datenbank
  $uid:		 User-ID - Jedes Thema muss einem Benutzer/Blog zugeordnet werden
@@ -204,6 +215,7 @@ function addTopic($uid, $name, $description) {
     $sql = "INSERT INTO topic (uid, name, description) values ($uid, '$name', '$description')";
     return $db->exec($sql);
 }
+
 /************************************************************************************************
  updateTopic:	 Schreibt Änderungen eines bestehenden Themas in die DB
  $tid:		 Topic-ID des zu ändernden Themas
@@ -224,6 +236,7 @@ function updateTopic($tid, $name, $description) {
         return $db->exec($sql);
     } return false;
 }
+
 /************************************************************************************************
  deleteEntry:	Löscht einen bestimmten Blog-Beitrag aus der Datenbank
  $eid:		Entry-ID des zu löschenden Beitrags

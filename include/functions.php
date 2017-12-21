@@ -10,16 +10,23 @@ function getValue($key) {
     if (isset($params[$key])) return $params[$key];
     else return "";
 }
+
 // Prüft, ob der Benutzer angemeldet ist
-function getUserIdFromSession() {
-    if (isset($_SESSION['uid'])) return $_SESSION['uid'];
-    else return 0;
+function getUserId() {
+    if (isset($_SESSION['uid'])){
+        return $_SESSION['uid'];
+    } else{
+        return 0;
+    }
 }
-// Holt Menu Titel
+
+// Gibt den Titel für das Menu
 function getMenuTitle ($blogId){
     if ($blogId > 0) return "Blog von ".getUserName($blogId);
     else return "Blog";
 }
+
+// Gibt das Menu zurück
 function getMenu($blogId){
     if ($blogId >= 0) {
         if (!isset($_SESSION['uid'])){
@@ -28,7 +35,7 @@ function getMenu($blogId){
         echo "<li><a href='index.php?function=blogs&bid=$blogId'>Blog wählen</a></li>";
         if (isset($_SESSION['uid'])){
             echo "<li><a href='index.php?function=entriesMember&bid=".$_SESSION['uid']."'>Mein Blog</a></li>";
-            echo "<li><a href='index.php?function=entriesMemberCreate&bid=".$_SESSION['uid']."'>Neuen Blog erstellen</a></li>";
+            echo "<li><a href='index.php?function=entriesMemberCreate&bid=".$_SESSION['uid']."'>Neuen Blog Eintrag erstellen</a></li>";
             echo "<li><a href='index.php?function=logout&bid=$blogId'>Logout</a></li>";
         }
     }

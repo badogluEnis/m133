@@ -1,6 +1,6 @@
 <?php
 $detailBlog = getEntry($entryId);
-if(getUserIdFromSession() == true) {
+if(getUserId() == true) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $updateValues['title'] = $_POST['titel'];
         $updateValues['content'] = $_POST['content'];

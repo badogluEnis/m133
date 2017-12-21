@@ -15,6 +15,7 @@ function getUserIdFromDb($email, $password) {
     if ($user = $result->fetchArray()) return $user[0];
     else return 0;
 }
+
 /************************************************************************************************
  getUserName:	Liefert den Namen der übergebenen User-ID zurück
  Hinweis:		Ist nützlich, um den Benutzer z.B. mit "Willkommen 'Marc Muster'" zu begrüssen
@@ -31,6 +32,7 @@ function getUserName($uid) {
         else return $user[1];
     } else return "";
 }
+
 /************************************************************************************************
  getUserNames: Liefert die Namen aller registrierter Benutzer zurück
  Hinweis:		 Jeder Benutzer hat einen Blog, der auf seinen Namen lautet. Mit der Liste können
@@ -49,6 +51,7 @@ function getUserNames() {
     }
     return $alle;
 }
+
 /************************************************************************************************
  getEntries: Liefert alle Beiträge eines Benutzers/Blogs zurück
  Hinweis:	   Möglichkeit 1: Es werden in einem ersten Schritt nur die Titel der Beiträge angezeigt. In diesem
@@ -75,6 +78,7 @@ function getEntries($uid) {
     }
     return $alle;
 }
+
 /************************************************************************************************
  getEntry: Liefert einen bestimmten Beitrag zurück
  Hinweis:	 Falls in einem ersten Schritt nur die Titel der Beiträge angezeigt werden, kann mit
@@ -95,6 +99,7 @@ function getEntry($eid) {
         return $entry;
     } else return "";
 }
+
 /************************************************************************************************
  addEntry: Schreibt einen neuen Beitrag in die Datenbank, mit den min. erforderlichen Attributen
  $uid:	 User-ID - Jeder Beitrag muss einem Benutzer/Blog zugeordnet werden
@@ -111,6 +116,7 @@ function addEntry($uid, $title, $content) {
     $sql = "INSERT INTO entry (uid, datetime, title, content) values ($uid, ".time().", '$title', '$content')";
     return $db->exec($sql);
 }
+
 /************************************************************************************************
  updateEntry:	Schreibt Änderungen eines bestehenden Blog-Beitrags in die DB - minimale Variante
  $eid:		Entry-ID des zu ändernden Beitrags
@@ -131,6 +137,7 @@ function updateEntry($eid, $title, $content) {
         return $db->exec($sql);
     } return false;
 }
+
 /************************************************************************************************
  deleteEntry:	Löscht einen bestimmten Blog-Beitrag aus der Datenbank
  $eid:		Entry-ID des zu löschenden Beitrags

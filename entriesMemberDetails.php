@@ -1,5 +1,5 @@
 <?php
-if(getUserIdFromSession() == true) {
+if(getUserId() == true) {
     $detailBlog = getEntry($entryId);
     echo ' <div class="Entry">
             <div class="title">
@@ -20,6 +20,7 @@ if(getUserIdFromSession() == true) {
           </div>';
     echo "<br><br>";
     echo "<h3>Kommentare</h3>";
+    
     $allComments =  getComments($entryId);
     foreach ($allComments as $comments => $comment) {
         echo "<h4>".$comment['name']."</h4>";

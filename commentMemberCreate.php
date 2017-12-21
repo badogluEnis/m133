@@ -1,5 +1,7 @@
 <?php
-if(getUserIdFromSession() == true) {
+if(getUserIdFromSession() == !true) {
+    die('Bitte zuerst <a href="index.php?function=login">einloggen</a>');
+} else {
     if(empty($_POST)){
         $titel = '';
         $content = '';
@@ -7,9 +9,7 @@ if(getUserIdFromSession() == true) {
         $titel = $_POST['titleComment'];
         $content = $_POST['contentComment'];
         addComment($_POST['eid'] ,$titel,$content);
-        header('Location: index.php?function=entriesMemberDetails&bid='.$_POST['bid'].'&eid='.$_POST['eid'].'');
+        header('Location: index.php?function=entries_member_details&bid='.$_POST['bid'].'&eid='.$_POST['eid'].'');
     }
-} else {
-    die('Bitte zuerst <a href="index.php?function=login">einloggen</a>');
 }
 ?>

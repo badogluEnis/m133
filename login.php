@@ -7,12 +7,12 @@ if(empty($_POST['email']) & empty($_POST['passwort'])){
     $email = $_POST['email'];
     $passwort = $_POST['passwort'];
     $uid = getUserIdFromDb($email, $passwort);
-    if (!empty($uid)){
-        $_SESSION['uid'] = $uid;
-        header('Location: index.php?function=entriesMember&bid='.$uid.'');
-    } else {
+    if (empty($uid)){
         $meldung = "Login ist Falsch";
         header('Location: index.php?function=login&bid='.$blogId.'');
+    } else {        
+        $_SESSION['uid'] = $uid;
+        header('Location: index.php?function=entriesMember&bid='.$uid.'');
     }
 }
 // $_SERVER['PHP_SELF'] = login.php in diesem Fall (also die PHP-Datei, die gerade ausgeführt wird).
@@ -27,20 +27,19 @@ if(empty($_POST['email']) & empty($_POST['passwort'])){
 ?>
 <form method="post" action="<?= $_SERVER['PHP_SELF']."?function=login"; ?>">
   <label for="email">Benutzername</label>
-  <div>
-	<input type="email" id="email" name="email" placeholder="E-Mail" value="" />
+  <div style="width: 400px;">
+	<input class="form-control" type="email" id="email" name="email" placeholder="E-Mail" value="" />
   </div>
   <label for="passwort">Passwort</label>
-  <div>
-	<input type="password" id="passwort" name="passwort" placeholder="Passwort" value="" />
+  <div style="width: 400px;">
+	<input class="form-control" type="password" id="passwort" name="passwort" placeholder="Passwort" value="" />
   </div>
-  <div class="meldung">
     <p style="color:red" ><?php echo $meldung; ?></p>
-  </div>
   <div>
-	<button type="submit">senden</button>
+	<button class="btn btn-primary" type="submit">senden</button>
   </div>
+  <br>
 </form>
 
-<?php  die('Noch kein Login?  <a href="index.php?function=register&bid='.$blogId.'">hier Registrieren</a>');
+<?php  die('Noch keinen Account?  <a href="index.php?function=register&bid='.$blogId.'">hier</a> Registrieren!');
  echo "<br><a href=\"javascript:history.go(-1)\">zurück</a>"; ?>
