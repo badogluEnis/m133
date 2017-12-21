@@ -4,12 +4,13 @@
 $entries = getEntries($blogId);
 if ($entries != NULL) {
     foreach ($entries as $entry => $blogs) {
-        $content = preg_replace("/[^ ]*$/", '', substr($blogs['content'], 0, 200));
+        $content = preg_replace("/[^ ]*$/", '', substr($blogs['content'], 0, 100));
+        $content = "<pre>".$content.'...'."</pre>";
         echo '<h4>'.$blogs['title'].'</h4>';
         echo date('d.m.Y',$blogs['datetime']);
         echo '<br>';
-        echo $content.'...';
-        echo '<a href="index.php?function=entriesPublicDetails&bid='.$blogId.'&eid='.$blogs['eid'].'">Blog anzeigen </a>';
+        echo $content;
+        echo '<a class="btn btn-success" href="index.php?function=entriesPublicDetails&bid='.$blogId.'&eid='.$blogs['eid'].'">Blog anzeigen </a>';
         echo "<br>"."<br>";
     }
 } else {

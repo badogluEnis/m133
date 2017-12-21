@@ -19,11 +19,11 @@ if(getUserId() == 0) {
   <input  class="form-control" type="hidden" name="bid" value="<?= $blogId ?>"/>
 
   <label for="titel">Titel</label>
-  <div>
+  <div style="width: 50%;">
 	<input class="form-control" id="titel" name="titel" placeholder="Blog Titel" required="required"/>
   </div>
   <label for="content">Blog-Text</label>
-  <div>
+  <div style="width: 50%;">
     <textarea class="form-control" name="content" rows="10" cols="80"></textarea>
   </div>
   	<br>

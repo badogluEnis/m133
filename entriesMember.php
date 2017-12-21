@@ -7,7 +7,7 @@ if(getUserId() == true) {
         echo '<a href="index.php?function=entriesMemberCreate&bid='.$blogId.'">Blog erstellen </a>';
     } else {
         foreach ($entries as $entry => $blogs) {
-            $content =  preg_replace("/[^ ]*$/", '', substr($blogs['content'], 0, 200));
+            $content =  preg_replace("/[^ ]*$/", '', substr($blogs['content'], 0, 100));
             $content = "<pre>".$content.'...'."</pre>";
             echo "<h4>".$blogs['title']."</h4>";
             echo date('d.m.Y',$blogs['datetime'])."<br>";

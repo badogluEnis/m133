@@ -33,19 +33,19 @@ echo '<p/>
     }
 ?>
   <h3>Neuer Kommentar</h3>
-  <form method="post" action='<?= $_SERVER['PHP_SELF']."?function=entries_public_details"; ?>'>
+  <form method="post" action='<?= $_SERVER['PHP_SELF']."?function=entriesPublicDetails"; ?>'>
     <input type="hidden" name="bid" value="<?= $blogId ?>">
     <input type="hidden" name="eid" value="<?= $entryId ?>">
         <label for="commentTitle">Benutzername</label>
       <div>
-    	   <input type="text" id="title" name="titleComment" placeholder="Kommentar Titel" required="required"/>
+    	   <input class="form-control" type="text" id="title" name="titleComment" placeholder="Kommentar Titel" required="required"/>
       </div>
         <label for="contentComment">Kommentar</label>
       <div>
-        <textarea name="contentComment" rows="10" cols="80" placeholder="Dein Kommentar"></textarea>
+        <textarea class="form-control" name="contentComment" rows="10" cols="80" placeholder="Dein Kommentar"></textarea>
       </div>
       <div>
-    	   <button type="submit">senden</button>
+    	   <button style="margin-top: 5px;" class="btn btn-primary" type="submit">senden</button>
       </div>
     </form>
 
